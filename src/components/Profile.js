@@ -1,40 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import ProfilePicture from "./ProfilePicture.js"; 
-import UserInfo from "./UserInfo.js"; 
-import Settings from "./Settings.js"; // ✅ Fixed import name
+import UserInfo from "./UserInfo.js";
 import "./Profile.css";
 
-function Profile() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [name, setName] = useState("John Doe"); // ✅ Added state for name
-
+function Profile({ user, setUser }) {
   return (
-    <div className={darkMode ? "profile dark" : "profile"}>
-      <h2>User Profile</h2>
-      
-      {/* ✅ Profile Picture Component */}
-      <ProfilePicture imageUrl="" /> 
+    <div className={`profile container mt-4 ${user.darkMode ? "dark" : ""}`}>
+      <h2 className="text-center">User Profile</h2>
 
-      {/* ✅ User Info Component (Passes name as a prop) */}
-      <UserInfo name={name} />
+      {/* Profile Picture Component */}
+      <ProfilePicture imageUrl="" />
 
-      {/* ✅ Input to update name */}
-      <label>
-        Name: 
+      {/* User Info Component */}
+      <UserInfo name={user.name} />
+
+      {/* Name Input Field */}
+      <div className="mb-3">
+        <label className="form-label">Name:</label>
         <input 
           type="text" 
-          value={name} 
-          onChange={(e) => setName(e.target.value)} 
+          className="form-control"
+          value={user.name} 
+          onChange={(e) => setUser({ ...user, name: e.target.value })} 
         />
-      </label>
+      </div>
 
       <p>Email: johndoe@example.com</p>
 
-      {/* ✅ Settings Component (Passes dark mode state and function) */}
-      <Settings darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
-
-      <button onClick={() => setDarkMode(!darkMode)}>
-        Toggle {darkMode ? "Light" : "Dark"} Mode
+      {/* Dark Mode Toggle Button */}
+      <button 
+        className="btn btn-secondary mt-3"
+        onClick={() => setUser({ ...user, darkMode: !user.darkMode })}
+      >
+        {user.darkMode ? "Disable Dark Mode" : "Enable Dark Mode"}
       </button>
     </div>
   );
