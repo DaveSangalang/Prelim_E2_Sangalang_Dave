@@ -1,0 +1,12 @@
+.profile {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    color: black;
+  }
+  
+  .profile.dark {
+    background-color: black;
+    color: white;
+  }
+  
